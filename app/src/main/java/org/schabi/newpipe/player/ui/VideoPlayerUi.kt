@@ -1042,6 +1042,16 @@ abstract class VideoPlayerUi protected constructor(
             seekBar.setChapters(currentChapters, info.duration)
         }
         binding.currentChapterTitle.visibility = View.GONE
+
+        // Heatmap visualization on seekbar
+        val heatmap = info.streamHeatmap
+        if (seekBar is ChaptersSeekBar) {
+            if (heatmap.isEmpty()) {
+                seekBar.clearHeatmap()
+            } else {
+                seekBar.setHeatmap(heatmap, info.duration * 1000L)
+            }
+        }
     }
 
     private fun updateStreamRelatedViews() {
